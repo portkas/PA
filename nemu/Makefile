@@ -59,10 +59,3 @@ else
 # Include rules to build NEMU
 include $(NEMU_HOME)/scripts/native.mk
 endif
-
-debug:
-	@echo $(CC)
-	@echo $(CFLAGS_BUILD)
-	@echo $(CFLAGS_TRACE)
-	@echo $(CFLAGS)
-	@echo $(LDFLAGS)
