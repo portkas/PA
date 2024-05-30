@@ -63,6 +63,14 @@ static int cmd_si(char *args){
   return 0;
 }
 
+static int cmd_info(char *args){
+  char *arg = strtok(args, " ");
+  if(strcmp(arg, "r") == 0){
+    isa_reg_display();
+  }
+  return 0;
+}
+
 static int cmd_q(char *args) {
   return -1;
 }
@@ -79,7 +87,8 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-  { "si", "Single-Step execution", cmd_si }
+  { "si", "Single-Step execution", cmd_si },
+  { "info", "Register detailed information", cmd_info}
 };
 
 #define NR_CMD ARRLEN(cmd_table)
