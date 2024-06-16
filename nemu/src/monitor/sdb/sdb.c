@@ -80,7 +80,7 @@ static int cmd_x(char *args){
   sscanf(N, "%d", &len);
   sscanf(EXPR, "%x", &address);
   for(int i=0; i<len; i++){
-    word_t w = vaddr_read(address, len);
+    word_t w = vaddr_read(address, 4);
     address += 4;
     printf("%x\n", w);
   }
