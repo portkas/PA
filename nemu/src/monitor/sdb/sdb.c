@@ -73,26 +73,34 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args){
-  char *arg1 = strtok(NULL, " ");
-  if (arg1 == NULL) {
-    printf("Usage: x N EXPR\n");
-    return 0;
-  }
-  char *arg2 = strtok(NULL, " ");
-  if (arg1 == NULL) {
-    printf("Usage: x N EXPR\n");
-    return 0;
-  }
-
-  int n = strtol(arg1, NULL, 10);
-  vaddr_t expr = strtol(arg2, NULL, 16);
-
-  for(int i=0; i<n; i++){
-    word_t w = vaddr_read(expr, 4);
-    printf("%#018x: %#018x\n", expr, w);
-    expr += 4;
-  }
-  return 0;
+  char *arg = strtok(args, " ");
+	if(arg == NULL){
+	    printf("请输入参数N！\n");
+	    return 0;
+	}
+	int  n = atoi(arg);
+	char *EXPR = strtok(NULL, " ");
+	if(EXPR == NULL){
+		printf("请输入内存起始地址！\n");
+		return 0;
+	}
+	bool success = true;
+	vaddr_t addr = expr(EXPR, &success);
+        if (!success){
+		printf("表达式出错！\n");
+		return 0;
+	}
+	for(int i = 0; i < n; i++){
+		uint32_t data = vaddr_read(addr + i * 4, 4);
+		printf("0x%08x	", addr + i * 4);
+		for(int j = 0; j < 4; j++){
+	                printf("0x%02x	" , data & 0xff);
+	                data = data >> 8;
+		}
+		printf("\n");
+	}
+	printf("OK!\n");
+	return 0;
 }
 
 static int cmd_q(char *args) {
