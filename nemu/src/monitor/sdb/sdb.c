@@ -73,16 +73,25 @@ static int cmd_info(char *args){
 }
 
 static int cmd_x(char *args){
-  char *N = strtok(args, " ");
-  char *EXPR = strtok(NULL, " ");
-  int len;
-  vaddr_t address;
-  sscanf(N, "%d", &len);
-  sscanf(EXPR, "%x", &address);
-  for(int i=0; i<len; i++){
-    word_t w = vaddr_read(address, 4);
-    address += 4;
-    printf("%x\n", w);
+  char *arg1 = strtok(NULL, " ");
+  if(arg1 == NULL){
+    printf("Usage: x N EXPR\n");
+    return 0;
+  }
+  char *arg2 = strtok(NULL, " ");
+  if(arg2 == NULL){
+    printf("Usage: x N EXPR\n");
+    return 0;
+  }
+
+  int N = strtol(arg1, NULL, 10);
+  vaddr_t EXPR = strtol(arg2, NULL, 16);
+
+  for(int i=0; i<N; i++){
+    printf("%#018x: ", EXPR);
+    word_t w = vaddr_read(EXPR, 4);
+    EXPR += 4;
+    printf("%#018x\n", w);
   }
   return 0;
 }
