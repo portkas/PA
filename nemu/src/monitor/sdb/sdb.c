@@ -84,12 +84,7 @@ static int cmd_x(char *args){
 		printf("请输入内存起始地址！\n");
 		return 0;
 	}
-	bool success = true;
-	vaddr_t addr = expr(EXPR, &success);
-        if (!success){
-		printf("表达式出错！\n");
-		return 0;
-	}
+	vaddr_t addr = strtol(EXPR, NULL, 16);
 	for(int i = 0; i < n; i++){
 		uint32_t data = vaddr_read(addr + i * 4, 4);
 		printf("0x%08x	", addr + i * 4);
