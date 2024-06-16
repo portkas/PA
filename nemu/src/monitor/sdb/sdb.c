@@ -87,18 +87,11 @@ static int cmd_x(char *args){
   int n = strtol(arg1, NULL, 10);
   vaddr_t expr = strtol(arg2, NULL, 16);
 
-  int i, j;
-  for (i = 0; i < n;) {
-    printf("%#018x: ", expr);
-    
-    for (j = 0; i < n && j < 4; i++, j++) {
-      word_t w = vaddr_read(expr, 8);
-      expr += 8;
-      printf("%#018x ", w);
-    }
-    puts("");
+  for(int i=0; i<n; i++){
+    word_t w = vaddr_read(expr, 4);
+    printf("%#018x: %#018x\n", expr, w);
+    expr += 4;
   }
-  
   return 0;
 }
 
