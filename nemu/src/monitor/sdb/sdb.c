@@ -74,28 +74,31 @@ static int cmd_info(char *args){
 
 static int cmd_x(char *args){
   char *arg1 = strtok(NULL, " ");
-  if(arg1 == NULL){
+  if (arg1 == NULL) {
     printf("Usage: x N EXPR\n");
     return 0;
   }
   char *arg2 = strtok(NULL, " ");
-  if(arg2 == NULL){
+  if (arg1 == NULL) {
     printf("Usage: x N EXPR\n");
     return 0;
   }
 
-  int N = strtol(arg1, NULL, 10);
-  vaddr_t EXPR = strtol(arg2, NULL, 16);
+  int n = strtol(arg1, NULL, 10);
+  vaddr_t expr = strtol(arg2, NULL, 16);
 
-  for(int i=0; i<N;){
-    printf("%#018x: ", EXPR);
-    for(int j=0; i<N && j<4; i++, j++){
-      word_t w = vaddr_read(EXPR, 8);
-      EXPR += 8;
-      printf("%#018x", w);
+  int i, j;
+  for (i = 0; i < n;) {
+    printf("%#018x: ", expr);
+    
+    for (j = 0; i < n && j < 4; i++, j++) {
+      word_t w = vaddr_read(expr, 8);
+      expr += 8;
+      printf("%#018x ", w);
     }
     puts("");
   }
+  
   return 0;
 }
 
