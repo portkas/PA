@@ -75,13 +75,13 @@ static int cmd_info(char *args){
 static int cmd_x(char *args){
   char *arg = strtok(args, " ");
 	if(arg == NULL){
-	    printf("请输入参数N！\n");
+	    printf("Usage: x N EXPR\n");
 	    return 0;
 	}
 	int  n = atoi(arg);
 	char *EXPR = strtok(NULL, " ");
 	if(EXPR == NULL){
-		printf("请输入内存起始地址！\n");
+		printf("Usage: x N EXPR\n");
 		return 0;
 	}
 	vaddr_t addr = strtol(EXPR, NULL, 16);
